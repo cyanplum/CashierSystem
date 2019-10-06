@@ -2,7 +2,13 @@ spring:
   profiles:
     active: dev
 server:
-  port: 8888
+  port: 443
+  ssl:
+    key-store: 2890437_tqktqk.cn.pfx
+    key-store-password: aA1DT4iT
+#    key-alias: tomcat1
+#    key-store-type: PKCS12
+#  max-http-header-size: 8999
 mybatis-plus:
   global-config:
     db-config:
@@ -19,3 +25,5 @@ windy:
 #    /code/image
     injectClass: org.uppower.project.cashiermanagesystem.model.UserInfo
     accessTokenExpireIn: 7200
+http:
+  port: 80

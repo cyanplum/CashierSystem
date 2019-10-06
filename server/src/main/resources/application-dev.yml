@@ -4,7 +4,7 @@ spring:
   #      enabled: true
   #      additional-paths: src/main/java
   datasource:
-    url: jdbc:mysql://localhost:3308/cashier?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://47.106.217.214:3306/cashier?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&serverTimezone=Asia/Shanghai
     username: root
     password: tuqikang
     driver-class-name: com.mysql.jdbc.Driver

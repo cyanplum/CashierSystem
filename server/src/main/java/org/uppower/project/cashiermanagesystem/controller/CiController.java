@@ -2,7 +2,6 @@ package org.uppower.project.cashiermanagesystem.controller;
 
 import cn.windyrjc.utils.response.Response;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,19 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
  * ░     ░ ░      ░  ░
  *
  * @author ：涂齐康
- * @date ：Created in 2019/10/5 4:48 下午
+ * @date ：Created in 2019/10/7 12:10 上午
  * @description：
  * @modified By：
  * @version:
  */
-@RequestMapping("/test")
-@Api(value = "测试接口",description = "测试服务器是否正常")
+@RequestMapping("/ci")
 @RestController
-public class TestController {
+@Api(value = "测试ci",description = "持续集成")
+public class CiController {
 
-    @GetMapping
-    @ApiOperation("给你个hello world！")
-    public Response<String> hello(){
-        return Response.success("Hello World!");
+    @GetMapping("/out")
+    public Response<String> out(){
+        return Response.success("持续集成测试：version1");
     }
 }
