@@ -2,6 +2,7 @@ package org.uppower.project.cashiermanagesystem.controller;
 
 import cn.windyrjc.utils.response.Response;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @GetMapping
+    @ApiOperation("给你个hello world！")
     public Response<String> hello(){
         return Response.success("Hello World!");
     }
