@@ -30,6 +30,6 @@ public class CiController {
 
     @GetMapping("/out")
     public Response<String> out(){
-        return Response.success("持续集成测试：version2");
+        return Response.success("持续集成测试：version3");
     }
 }
