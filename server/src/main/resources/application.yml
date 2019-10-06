@@ -21,7 +21,7 @@ windy:
   security:
     imageCode:
       enable: false
-    ignoreUrl: /test,/auth/form
+    ignoreUrl: /test,/auth/form,/ci/out
 #    /code/image
     injectClass: org.uppower.project.cashiermanagesystem.model.UserInfo
     accessTokenExpireIn: 7200
