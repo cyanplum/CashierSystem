@@ -1,11 +1,8 @@
-package org.uppower.project.cashiermanagesystem.model;
+package org.uppower.project.cashiermanagesystem.utils;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.jetbrains.annotations.NotNull;
-
-import javax.validation.constraints.NotBlank;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 /**
  * █████▒█      ██  ▄████▄   ██ ▄█▀       ██████╗ ██╗   ██╗ ██████╗
@@ -19,18 +16,21 @@ import javax.validation.constraints.NotBlank;
  * ░     ░ ░      ░  ░
  *
  * @author ：涂齐康
- * @date ：Created in 2019/10/5 4:42 下午
+ * @date ：Created in 2019/10/7 9:21 下午
  * @description：
  * @modified By：
  * @version:
  */
+@Component
+@ConfigurationProperties(prefix = "wechat")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class UserLoginVO {
+public class AppPropertiesUtil {
 
-    @NotBlank
-    @NotNull
-    private String code;
+    private String appId;
+
+    private String secret;
+
+    private String wxLoginUrl;
+
 
 }
