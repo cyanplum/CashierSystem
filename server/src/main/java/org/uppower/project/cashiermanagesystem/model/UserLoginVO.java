@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * █████▒█      ██  ▄████▄   ██ ▄█▀       ██████╗ ██╗   ██╗ ██████╗
  * ▓██   ▒ ██  ▓██▒▒██▀ ▀█   ██▄█▒        ██╔══██╗██║   ██║██╔════╝
@@ -27,6 +29,8 @@ import org.jetbrains.annotations.NotNull;
 @AllArgsConstructor
 public class UserLoginVO {
 
+    @NotBlank
+    @NotNull
     private String code;
 
 }

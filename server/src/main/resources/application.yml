@@ -21,9 +21,13 @@ windy:
   security:
     imageCode:
       enable: false
-    ignoreUrl: /test,/auth/form
+    ignoreUrl: /test,/auth/form,/ci/out
 #    /code/image
     injectClass: org.uppower.project.cashiermanagesystem.model.UserInfo
     accessTokenExpireIn: 7200
 http:
   port: 80
+wechat:
+  appId: wx2c72530223447bcc
+  secret: eb9d04821f27dd3f7af9994c5db5f5b5
+  wxLoginUrl: https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code

@@ -30,6 +30,8 @@ public class UserInfo {
 
     private String openId;
 
+    private String sessionKey;
+
     private String name;
 
     private String phone;

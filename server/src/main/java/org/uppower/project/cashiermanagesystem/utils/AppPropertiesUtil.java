@@ -1,10 +1,8 @@
-package org.uppower.project.cashiermanagesystem.controller;
+package org.uppower.project.cashiermanagesystem.utils;
 
-import cn.windyrjc.utils.response.Response;
-import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 /**
  * █████▒█      ██  ▄████▄   ██ ▄█▀       ██████╗ ██╗   ██╗ ██████╗
@@ -18,18 +16,21 @@ import org.springframework.web.bind.annotation.RestController;
  * ░     ░ ░      ░  ░
  *
  * @author ：涂齐康
- * @date ：Created in 2019/10/7 12:10 上午
+ * @date ：Created in 2019/10/7 9:21 下午
  * @description：
  * @modified By：
  * @version:
  */
-@RequestMapping("/ci")
-@RestController
-@Api(value = "测试ci",description = "持续集成")
-public class CiController {
+@Component
+@ConfigurationProperties(prefix = "wechat")
+@Data
+public class AppPropertiesUtil {
 
-    @GetMapping("/out")
-    public Response<String> out(){
-        return Response.success("持续集成测试：version6");
-    }
+    private String appId;
+
+    private String secret;
+
+    private String wxLoginUrl;
+
+
 }
