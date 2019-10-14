@@ -2,16 +2,18 @@ package org.uppower.project.cashiermanagesystem.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.uppower.project.cashiermanagesystem.model.entity.jsonobject.Commodityinfo;
 
 /**
  * <p>
@@ -43,8 +45,8 @@ public class DealRecordEntity implements Serializable {
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "交易商品")
-    @TableField("commodity")
-    private String commodity;
+    @TableField(el = "commodity,typeHandler=org.uppower.project.cashiermanagesystem.dao.typehandler.ListTypeHandler")
+    private List<Commodityinfo> commodity;
 
     @ApiModelProperty(value = "总价")
     @TableField("total_prices")
