@@ -53,9 +53,9 @@ public class OrderNumberGenerator {
     public static String getOrderCode(Thread thread) {
         StringBuilder builder = new StringBuilder();
         builder.append(thread.hashCode() % DIVISOR);
-        builder.append(BASE + RANDOM.nextInt(LIMIT));
+        builder.append(RANDOM.nextInt(BASE, LIMIT));
         builder.append(pattern.format(Instant.now().toEpochMilli()));
-        builder.append(BASE + RANDOM.nextInt(LIMIT));
+        builder.append(RANDOM.nextInt(BASE, LIMIT));
         return builder.toString();
     }
 }
