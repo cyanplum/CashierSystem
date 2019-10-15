@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.uppower.project.cashiermanagesystem.dao.DealRecordMapper;
 import org.uppower.project.cashiermanagesystem.model.entity.DealRecordEntity;
 import org.uppower.project.cashiermanagesystem.model.entity.jsonobject.Commodityinfo;
+import org.uppower.project.cashiermanagesystem.utils.FastJsonUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,33 +35,35 @@ public class DealService {
     /**
      * 测试jsonHandler是否有问题
      */
-    public void testInsert(){
+    public void testInsert() {
         DealRecordEntity dre = new DealRecordEntity();
         dre.setTotalPrices(100);
         dre.setUserId(1);
         List<Commodityinfo> commodityinfos = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             Commodityinfo commodityinfo = new Commodityinfo();
-            commodityinfo.setBarcode(i+"");
-            commodityinfo.setName(i+"");
-            commodityinfo.setPrice(i*10);
+            commodityinfo.setBarcode(i + "");
+            commodityinfo.setName(i + "");
+            commodityinfo.setPrice(i * 10);
             commodityinfos.add(commodityinfo);
         }
-        dre.setCommodity(commodityinfos);
-        int success = dealRecordMapper.insert(dre);
-        if (success!=1){
+        String s = FastJsonUtil.convertObjectToJSON(commodityinfos);
+        dre.setCommodity(s);
+        int success = dealRecordMapper.insertEntity(dre);
+        if (success != 1) {
             System.out.println("失败");
-        }else {
+        } else {
             System.out.println("成功");
         }
     }
 
-    public void testQuery(){
-        DealRecordEntity dealRecordEntity = dealRecordMapper.selectById(1);
+    public void testQuery() {
+        DealRecordEntity dealRecordEntity = dealRecordMapper.selectForId(2);
         System.out.println(dealRecordEntity.getCreateTime());
-        List<Commodityinfo> commodity = dealRecordEntity.getCommodity();
-        for (Commodityinfo c : commodity){
-            System.out.println(c.getBarcode()+"\t"+c.getName()+"\t"+c.getPrice());
+        String s = dealRecordEntity.getCommodity();
+        List<Commodityinfo> commodityinfos = FastJsonUtil.toList(s, Commodityinfo.class);
+        for (Commodityinfo c : commodityinfos) {
+            System.out.println(c.getBarcode() + "\t" + c.getName() + "\t" + c.getPrice());
         }
     }
 

@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 /**
  * █████▒█      ██  ▄████▄   ██ ▄█▀       ██████╗ ██╗   ██╗ ██████╗
  * ▓██   ▒ ██  ▓██▒▒██▀ ▀█   ██▄█▒        ██╔══██╗██║   ██║██╔════╝
@@ -25,33 +27,18 @@ import lombok.experimental.Accessors;
  * @version:
  */
 @Data
-@ApiModel("购买商品的简单信息")
+@ApiModel("单个商品的简单信息")
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class Commodityinfo {
+public class Commodityinfo implements Serializable {
     @ApiModelProperty("商品条形码")
     private String barcode;
 
     @ApiModelProperty("商品名称")
     private String name;
 
-    @ApiModelProperty("商品价格")
+    @ApiModelProperty("商品价格 以分为单位")
     private Integer price;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Double getPrice() {
-        return price/100.0;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
 }
