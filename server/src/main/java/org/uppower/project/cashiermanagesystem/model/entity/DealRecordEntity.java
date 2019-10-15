@@ -2,16 +2,21 @@ package org.uppower.project.cashiermanagesystem.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.time.LocalDateTime;
+
 import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.io.Serializable;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.uppower.project.cashiermanagesystem.model.entity.jsonobject.Commodityinfo;
 
 /**
  * <p>
@@ -25,12 +30,12 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("deal_record")
-@ApiModel(value="DealRecordEntity对象", description="交易记录表")
+@ApiModel(value = "DealRecordEntity对象", description = "交易记录表")
 public class DealRecordEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "Id")
+    @ApiModelProperty(value = "id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
@@ -42,6 +47,10 @@ public class DealRecordEntity implements Serializable {
     @TableField("create_time")
     private LocalDateTime createTime;
 
+    @ApiModelProperty(value = "订单号")
+    @TableField("order_number")
+    private String orderNumber;
+
     @ApiModelProperty(value = "交易商品")
     @TableField("commodity")
     private String commodity;
@@ -49,6 +58,8 @@ public class DealRecordEntity implements Serializable {
     @ApiModelProperty(value = "总价")
     @TableField("total_prices")
     private Integer totalPrices;
+
+
 
 
 }

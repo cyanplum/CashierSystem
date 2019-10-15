@@ -17,6 +17,8 @@ mybatis-plus:
       id-type: auto
     banner: false
   mapper-locations: classpath*:/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
 windy:
   security:
     imageCode:

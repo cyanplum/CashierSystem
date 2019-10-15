@@ -1,6 +1,7 @@
 package org.uppower.project.cashiermanagesystem.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 import org.uppower.project.cashiermanagesystem.model.entity.DealRecordEntity;
 
 /**
@@ -13,4 +14,8 @@ import org.uppower.project.cashiermanagesystem.model.entity.DealRecordEntity;
  */
 public interface DealRecordMapper extends BaseMapper<DealRecordEntity> {
 
+
+    int insertEntity(@Param("entity") DealRecordEntity entity);
+
+    DealRecordEntity selectForId(@Param("id") int id);
 }
