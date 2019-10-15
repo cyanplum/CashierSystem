@@ -1,10 +1,8 @@
 package org.uppower.project.cashiermanagesystem.model.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.time.LocalDateTime;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -53,6 +51,7 @@ public class BarcodeEntity implements Serializable {
 
     @ApiModelProperty(value = "逻辑删除 0未删除 1已删除")
     @TableField("deleted")
+    @TableLogic
     private Integer deleted;
 
 

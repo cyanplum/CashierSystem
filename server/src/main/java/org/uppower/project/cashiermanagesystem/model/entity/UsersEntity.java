@@ -3,6 +3,8 @@ package org.uppower.project.cashiermanagesystem.model.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
@@ -48,6 +50,10 @@ public class UsersEntity implements Serializable {
     @ApiModelProperty(value = "身份证号")
     @TableField("ID_number")
     private String idNumber;
+
+    @ApiModelProperty(value = "生日")
+    @TableField("birthday")
+    private LocalDate birthday;
 
     @ApiModelProperty(value = "创建时间")
     @TableField("create_time")

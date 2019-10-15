@@ -33,7 +33,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @MapperScan("org.uppower.project.cashiermanagesystem.dao")
 public class MybatisPlusConfig {
 
-    public ISqlInjector sqlInjector(){
+    public ISqlInjector sqlInjector() {
         return new LogicSqlInjector();
     }
 
@@ -51,7 +51,7 @@ public class MybatisPlusConfig {
      * SQL执行效率插件
      */
     @Bean
-    @Profile({"dev","test"})// 设置 dev test 环境开启
+    @Profile({"dev", "test"})// 设置 dev test 环境开启
     public PerformanceInterceptor performanceInterceptor() {
         return new PerformanceInterceptor();
     }
