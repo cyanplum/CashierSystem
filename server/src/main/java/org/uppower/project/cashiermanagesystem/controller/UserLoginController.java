@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.uppower.project.cashiermanagesystem.exceptions.ServerException;
 import org.uppower.project.cashiermanagesystem.model.UserInfo;
 import org.uppower.project.cashiermanagesystem.model.UserLoginVO;
+import org.uppower.project.cashiermanagesystem.model.enums.WeChatErrcodeEnum;
 import org.uppower.project.cashiermanagesystem.utils.AppPropertiesUtil;
 
 import java.io.IOException;
@@ -85,11 +86,20 @@ public class UserLoginController implements AuthenticationService<UserLoginVO> {
             e.printStackTrace();
         }
 
-        // 解析json
+        // 解析json，拿到需要的数据
         JSONObject jsonObject = (JSONObject) JSONObject.parse(resultString);
         String seesionKey = jsonObject.get("session_key") + "";
         String openid = jsonObject.get("openid") + "";
+        Integer errcode = Integer.valueOf(jsonObject.get("errcode") + "");
 
+        //判断是否成功请求微信request接口
+        if (errcode == null) {
+            throw new ServerException("请求失败");
+        } else {
+            if (errcode - WeChatErrcodeEnum.SUCCESS.getCode() != 0) {
+                throw new ServerException(WeChatErrcodeEnum.getMsgByCode(errcode));
+            }
+        }
 
         System.out.println("session_key==" + seesionKey);
         System.out.println("openid==" + openid);

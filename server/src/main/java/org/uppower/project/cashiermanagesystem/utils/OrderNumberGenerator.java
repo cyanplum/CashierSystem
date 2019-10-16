@@ -36,9 +36,9 @@ public class OrderNumberGenerator {
 
     private static final int DIVISOR = 10;
 
-    private static final int BASE = 1000;
+    private static final int ORIGIN = 1000;
 
-    private static final int LIMIT = 9000;
+    private static final int BOUND = 10000;
 
     /**
      * 【生成策略】
@@ -53,9 +53,9 @@ public class OrderNumberGenerator {
     public static String getOrderCode(Thread thread) {
         StringBuilder builder = new StringBuilder();
         builder.append(thread.hashCode() % DIVISOR);
-        builder.append(BASE + RANDOM.nextInt(LIMIT));
+        builder.append(RANDOM.nextInt(ORIGIN, BOUND));
         builder.append(pattern.format(Instant.now().toEpochMilli()));
-        builder.append(BASE + RANDOM.nextInt(LIMIT));
+        builder.append(RANDOM.nextInt(ORIGIN, BOUND));
         return builder.toString();
     }
 }
