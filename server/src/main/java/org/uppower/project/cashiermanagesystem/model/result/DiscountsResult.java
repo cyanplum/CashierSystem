@@ -23,8 +23,11 @@ import java.time.LocalDateTime;
 @Data
 public class DiscountsResult {
 
-    @ApiModelProperty(value = "优惠方式")
-    private String pattern;
+    @ApiModelProperty(value = "优惠方式Enum")
+    private Integer pattern;
+
+    @ApiModelProperty(value = "优惠方式name")
+    private String name;
 
     @ApiModelProperty(value = "消费达到值")
     private Integer target;

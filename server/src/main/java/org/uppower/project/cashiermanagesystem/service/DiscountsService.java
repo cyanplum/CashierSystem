@@ -38,9 +38,9 @@ public class DiscountsService {
         for(DiscountsDto dto:discountsDto){
             result=DataUtil.convert(dto,DiscountsResult.class);
             if (DiscountAuthEnum.FULL.getAuth()-dto.getPattern()==0)
-                result.setPattern(DiscountAuthEnum.FULL.getName());
+                result.setName(DiscountAuthEnum.FULL.getName());
             else
-                result.setPattern(DiscountAuthEnum.DISCOUNTS.getName());
+                result.setName(DiscountAuthEnum.DISCOUNTS.getName());
             discountsResults.add(result);
         }
         return Response.success(discountsResults);
@@ -49,7 +49,7 @@ public class DiscountsService {
     public Response store(DiscountsVO discountsVO){
         DiscountsEntity discountsEntity;
         discountsEntity = DataUtil.convert(discountsVO,DiscountsEntity.class);
-        discountsEntity.setAuth(DiscountAuthEnum.getCodeByMsg(discountsVO.getPattern()));
+        discountsEntity.setPattern(DiscountAuthEnum.getCodeByMsg(discountsVO.getName()));
         if (discountsVO.getAuth().equals("会员"))
             discountsEntity.setAuth(3);
         return discountsMapper.insert(discountsEntity)==1 ? Response.success() : Response.fail("新增失败");
