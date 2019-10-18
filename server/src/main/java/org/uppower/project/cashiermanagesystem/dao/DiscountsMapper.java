@@ -1,7 +1,11 @@
 package org.uppower.project.cashiermanagesystem.dao;
 
+
+import org.uppower.project.cashiermanagesystem.model.dto.DiscountsDto;
 import org.uppower.project.cashiermanagesystem.model.entity.DiscountsEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.uppower.project.cashiermanagesystem.model.result.DiscountsResult;
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface DiscountsMapper extends BaseMapper<DiscountsEntity> {
 
+
+    List<DiscountsDto> index();
 }
