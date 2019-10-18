@@ -24,7 +24,7 @@ import java.util.List;
  * @date 2019/10/18 15:14
  */
 @RestController
-@RequestMapping("/Discounts")
+@RequestMapping("/discounts")
 @Api("优惠劵的操作")
 public class DiscountsController {
 

@@ -57,7 +57,7 @@ public class DiscountsService {
 
     public Response delete(Integer id)
     {
-        return Response.success(discountsMapper.deleteById(id) == 1 ? Response.success() : Response.fail("删除失败!"));
+        return discountsMapper.deleteById(id) == 1 ? Response.success() : Response.fail("删除失败!");
     }
 
     public Response update(Integer id, DiscountsVO discountsVO){
