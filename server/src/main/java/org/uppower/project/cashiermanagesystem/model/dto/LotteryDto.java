@@ -1,9 +1,6 @@
-package org.uppower.project.cashiermanagesystem.model.result;
+package org.uppower.project.cashiermanagesystem.model.dto;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiOperation;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -17,20 +14,19 @@ import java.time.LocalDateTime;
  * * | |_| |_    / /       | |   | |/   |/ /
  * * \_______|  /_/        |_|  |___/|___/
  *
- * @date 2019/10/18 15:25
+ * @date 2019/10/18 21:47
  */
-@ApiModel("优惠劵返回集")
 @Data
-public class DiscountsResult {
+public class LotteryDto {
 
     @ApiModelProperty(value = "id")
     private Integer id;
 
+    @ApiModelProperty(value = "0加入奖池 1奖池外")
+    private Integer status;
+
     @ApiModelProperty(value = "优惠方式Enum")
     private Integer pattern;
-
-    @ApiModelProperty(value = "优惠方式name")
-    private String name;
 
     @ApiModelProperty(value = "消费达到值")
     private Integer target;
@@ -39,16 +35,13 @@ public class DiscountsResult {
     private Integer remission;
 
     @ApiModelProperty(value = "打折数")
-    private Double discount;
+    private Integer discount;
 
     @ApiModelProperty(value = "权限")
     private String auth;
 
     @ApiModelProperty(value = "数量 -1 代表无限")
     private Integer amount;
-
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
 
     @ApiModelProperty(value = "开始时间")
     private LocalDateTime startTime;

@@ -18,6 +18,10 @@ import java.time.LocalDateTime;
  */
 @Data
 public class DiscountsDto {
+
+    @ApiModelProperty(value = "id")
+    private Integer id;
+
     @ApiModelProperty(value = "优惠方式Enum")
     private Integer pattern;
 

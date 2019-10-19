@@ -10,6 +10,7 @@ import org.uppower.project.cashiermanagesystem.model.entity.DiscountsEntity;
 import org.uppower.project.cashiermanagesystem.model.enums.DiscountAuthEnum;
 import org.uppower.project.cashiermanagesystem.model.result.DiscountsResult;
 import org.uppower.project.cashiermanagesystem.model.vo.DiscountsVO;
+import org.uppower.project.cashiermanagesystem.utils.MoneyManageUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,7 @@ public class DiscountsService {
         DiscountsResult result;
         for(DiscountsDto dto:discountsDto){
             result=DataUtil.convert(dto,DiscountsResult.class);
+            result.setDiscount(MoneyManageUtil.fenToYuan(dto.getDiscount()));
             if (DiscountAuthEnum.FULL.getAuth()-dto.getPattern()==0)
                 result.setName(DiscountAuthEnum.FULL.getName());
             else
@@ -49,6 +51,7 @@ public class DiscountsService {
     public Response store(DiscountsVO discountsVO){
         DiscountsEntity discountsEntity;
         discountsEntity = DataUtil.convert(discountsVO,DiscountsEntity.class);
+        discountsEntity.setDiscount(MoneyManageUtil.yuanToFen(discountsVO.getDiscount()));
         discountsEntity.setPattern(DiscountAuthEnum.getCodeByMsg(discountsVO.getName()));
         if (discountsVO.getAuth().equals("会员"))
             discountsEntity.setAuth(3);
@@ -63,6 +66,7 @@ public class DiscountsService {
     public Response update(Integer id, DiscountsVO discountsVO){
         DiscountsEntity discountsEntity =DataUtil.convert(discountsVO,DiscountsEntity.class);
         discountsEntity.setId(id);
+        discountsEntity.setDiscount(MoneyManageUtil.yuanToFen(discountsVO.getDiscount()));
         return Response.success(discountsMapper.updateById(discountsEntity)== 1 ? Response.success() : Response.fail("更新失败!"));
     }
 }
