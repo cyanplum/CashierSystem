@@ -51,16 +51,16 @@ public class LotteryService {
         LotteryEntity lotteryEntity = new LotteryEntity();
         lotteryEntity.setDiscountId(id);
         lotteryEntity.setStatus(0);
-        return Response.success(lotteryMapper.insert(lotteryEntity));
+        return lotteryMapper.insert(lotteryEntity)==1 ? Response.success() : Response.fail("新增失败");
     }
 
     public Response delete(Integer id)
     {
-        return Response.success(lotteryMapper.deleteById(id));
+        return lotteryMapper.deleteById(id)==1 ? Response.success() : Response.fail("删除失败");
     }
 
     public Response update(Integer id,Integer isShow)
     {
-        return Response.success(lotteryMapper.isShow(id,isShow));
+        return lotteryMapper.isShow(id,isShow)==1 ? Response.success() : Response.fail("修改失败");
     }
 }

@@ -1,5 +1,6 @@
 package org.uppower.project.cashiermanagesystem.model.vo;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +22,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ApiModel("优惠劵添加参数集")
 public class DiscountsVO {
 
     @ApiModelProperty(value = "id")
