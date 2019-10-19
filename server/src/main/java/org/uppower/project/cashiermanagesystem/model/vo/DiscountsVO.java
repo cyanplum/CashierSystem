@@ -22,6 +22,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DiscountsVO {
+
+    @ApiModelProperty(value = "id")
+    private Integer id;
+
     @ApiModelProperty(value = "优惠方式Enum")
     private Integer pattern;
 
@@ -35,7 +39,7 @@ public class DiscountsVO {
     private Integer remission;
 
     @ApiModelProperty(value = "打折数")
-    private Integer discount;
+    private Double discount;
 
     @ApiModelProperty(value = "权限")
     private String auth;
