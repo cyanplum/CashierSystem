@@ -1,5 +1,6 @@
 package org.uppower.project.cashiermanagesystem.model.vo;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
  */
 
 @Data
+@ApiModel("奖池添加参数集")
 public class LotteryVO {
 
     @ApiModelProperty(value = "id")
