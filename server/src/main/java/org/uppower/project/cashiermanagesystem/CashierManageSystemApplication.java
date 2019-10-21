@@ -25,6 +25,8 @@ public class CashierManageSystemApplication {
 
     public static final long PAGESIZE = 10;
 
+    public static final String BUCKET_NAME = "cashier";
+
     // 在某配置类中添加如下内容
     // 监听的http请求的端口,需要在application配置中添加http.port=端口号  如80
     @Value("${http.port}")
