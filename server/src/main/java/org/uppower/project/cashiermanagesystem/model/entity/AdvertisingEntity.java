@@ -32,9 +32,9 @@ public class AdvertisingEntity implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty(value = "附件路径")
-    @TableField("attachments")
-    private String attachments;
+    @ApiModelProperty("存储名，用于在minio中查找数据")
+    @TableField("store_name")
+    private String storeName;
 
     @ApiModelProperty(value = "状态0显示 1不显示")
     @TableField("status")

@@ -1,10 +1,16 @@
 package org.uppower.project.cashiermanagesystem.model.result;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.uppower.project.cashiermanagesystem.model.enums.DisplayEnum;
+
+import java.time.LocalDateTime;
 
 /**
  * █████▒█      ██  ▄████▄   ██ ▄█▀       ██████╗ ██╗   ██╗ ██████╗
@@ -18,26 +24,39 @@ import lombok.NoArgsConstructor;
  * ░     ░ ░      ░  ░
  *
  * @author ：涂齐康
- * @date ：Created in 2019/10/21 4:09 下午
+ * @date ：Created in 2019/10/21 6:43 下午
  * @description：
  * @modified By：
  * @version:
  */
+@ApiModel("广告具体信息")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel("文件信息")
-public class FileInfoResult {
+public class AdvertisingResult {
+    @ApiModelProperty("唯一id")
+    private Integer id;
 
-    @ApiModelProperty("文件名")
-    private String fileName;
+    @ApiModelProperty(value = "附件")
+    private FileInfoResult file;
 
-    @ApiModelProperty("存储名")
-    private String storeName;
+    @ApiModelProperty(value = "状态0显示 1不显示")
+    private Integer status;
 
-    @ApiModelProperty("获取地址")
-    private String url;
+    @ApiModelProperty(value = "状态名称")
+    private String statusName;
 
-    @ApiModelProperty("文件大小")
-    private Long size;
+    @ApiModelProperty(value = "状态颜色")
+    private String statusColor;
+
+    @ApiModelProperty(value = "创建时间")
+    @TableField("create_time")
+    private LocalDateTime createTime;
+
+    public void setStatus(Integer status) {
+        this.status = status;
+        DisplayEnum dis = DisplayEnum.getByCode(status);
+        statusName = dis.getName();
+        statusColor = dis.getColor();
+    }
 }

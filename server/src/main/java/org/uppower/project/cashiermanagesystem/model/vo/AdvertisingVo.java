@@ -1,4 +1,4 @@
-package org.uppower.project.cashiermanagesystem.model.result;
+package org.uppower.project.cashiermanagesystem.model.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,26 +18,21 @@ import lombok.NoArgsConstructor;
  * ░     ░ ░      ░  ░
  *
  * @author ：涂齐康
- * @date ：Created in 2019/10/21 4:09 下午
+ * @date ：Created in 2019/10/21 7:00 下午
  * @description：
  * @modified By：
  * @version:
  */
+@ApiModel("广告参数集")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel("文件信息")
-public class FileInfoResult {
+public class AdvertisingVo {
 
-    @ApiModelProperty("文件名")
-    private String fileName;
-
-    @ApiModelProperty("存储名")
+    @ApiModelProperty(value = "存储名，用于在minio中查找数据", required = false)
     private String storeName;
 
-    @ApiModelProperty("获取地址")
-    private String url;
+    @ApiModelProperty(value = "状态0显示 1不显示", required = false)
+    private Integer status;
 
-    @ApiModelProperty("文件大小")
-    private Long size;
 }
