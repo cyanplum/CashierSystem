@@ -49,8 +49,8 @@ public class DiscountsController {
         return discountsService.delete(id);
     }
 
-    @ApiOperation("修改优惠劵")
     @PatchMapping("/{id}")
+    @ApiOperation("修改优惠劵")
     public Response update(@ApiParam("修改的优惠劵的id") @PathVariable Integer id,@ApiParam("修改的优惠劵信息") @RequestBody DiscountsVO discountsVO){
         return discountsService.update(id,discountsVO);
     }

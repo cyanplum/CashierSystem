@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.uppower.project.cashiermanagesystem.dao.LotteryMapper">
+    <update id="isShow">
+        update lottery set status=#{isShow} where id = #{id};
+    </update>
 
+    <select id="index" resultType="org.uppower.project.cashiermanagesystem.model.dto.LotteryDto">
+    SELECT a.id,a.status,b.pattern,b.target,b.remission,b.discount,b.auth,b.start_time,b.end_time
+    FROM lottery as a
+    inner join discounts as b
+    where a.discount_id = b.id;
+    </select>
 </mapper>

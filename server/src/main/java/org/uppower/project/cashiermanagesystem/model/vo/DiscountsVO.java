@@ -1,5 +1,6 @@
 package org.uppower.project.cashiermanagesystem.model.vo;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,9 +22,17 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ApiModel("优惠劵添加参数集")
 public class DiscountsVO {
-    @ApiModelProperty(value = "优惠方式")
-    private String pattern;
+
+    @ApiModelProperty(value = "id")
+    private Integer id;
+
+    @ApiModelProperty(value = "优惠方式Enum")
+    private Integer pattern;
+
+    @ApiModelProperty(value = "优惠方式name")
+    private String name;
 
     @ApiModelProperty(value = "消费达到值")
     private Integer target;
@@ -32,7 +41,7 @@ public class DiscountsVO {
     private Integer remission;
 
     @ApiModelProperty(value = "打折数")
-    private Integer discount;
+    private Double discount;
 
     @ApiModelProperty(value = "权限")
     private String auth;
