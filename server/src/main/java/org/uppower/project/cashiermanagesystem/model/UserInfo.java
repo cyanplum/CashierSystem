@@ -28,6 +28,8 @@ import java.util.List;
 @NoArgsConstructor
 public class UserInfo {
 
+    private Integer id;
+
     private String openId;
 
     private String sessionKey;
