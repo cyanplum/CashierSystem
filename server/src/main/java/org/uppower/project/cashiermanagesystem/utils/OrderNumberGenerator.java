@@ -58,4 +58,12 @@ public class OrderNumberGenerator {
         builder.append(RANDOM.nextInt(ORIGIN, BOUND));
         return builder.toString();
     }
+
+    public static String getVipCode(){
+        StringBuilder builder = new StringBuilder();
+        builder.append(RANDOM.nextInt(ORIGIN, BOUND));
+        builder.append(pattern.format(Instant.now().toEpochMilli()));
+        builder.append(RANDOM.nextInt(ORIGIN, BOUND));
+        return builder.toString();
+    }
 }

@@ -54,5 +54,9 @@ public class BarcodeEntity implements Serializable {
     @TableLogic
     private Integer deleted;
 
+    @ApiModelProperty("存储名，用于在minio中查找数据")
+    @TableField("store_name")
+    private String storeName;
+
 
 }

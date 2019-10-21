@@ -2,4 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.uppower.project.cashiermanagesystem.dao.AdvertisingMapper">
 
+    <insert id="insertVo">
+        insert into advertising (store_name,status) values (#{vo.storeName},#{vo.status})
+    </insert>
+
+    <update id="updateByVo">
+        update advertising
+        <if test="vo.status!=null">
+            <set>status = #{vo.status}</set>
+        </if>
+        <if test="vo.storeName!=null">
+            <set>store_name = #{vo.storeName}</set>
+        </if>
+        where id=#{id}
+
+    </update>
+
+    <select id="selectListByStatus"
+            resultType="org.uppower.project.cashiermanagesystem.model.entity.AdvertisingEntity">
+        select * from advertising where 1=1
+        <if test="status!=null">
+            and status=#{status}
+        </if>
+        order by create_time desc
+    </select>
 </mapper>
