@@ -8,4 +8,12 @@
         inner join user_account as b
         where a.id = #{id} and a.id=b.user_id
     </select>
+    <select id="getDiscount"
+            resultType="org.uppower.project.cashiermanagesystem.model.dto.UserDiscountDto">
+        select a.id,a.pattern,a.target,a.remission,a.discount,a.start_time,a.end_time,b.status
+        from discounts  as a
+        inner join user_discount as b
+        where a.id=b.discount_id
+        and b.user_id=#{id};
+    </select>
 </mapper>

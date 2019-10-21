@@ -2,6 +2,9 @@ package org.uppower.project.cashiermanagesystem.dao;
 
 import org.uppower.project.cashiermanagesystem.model.entity.RolesEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.uppower.project.cashiermanagesystem.model.result.RolesResult;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface RolesMapper extends BaseMapper<RolesEntity> {
 
+
+        List<RolesResult> list();
 }

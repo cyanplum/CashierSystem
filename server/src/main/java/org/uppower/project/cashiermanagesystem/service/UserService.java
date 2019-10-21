@@ -1,6 +1,7 @@
 package org.uppower.project.cashiermanagesystem.service;
 
 import cn.windyrjc.security.web.beans.UserDetails;
+import cn.windyrjc.utils.copy.DataUtil;
 import cn.windyrjc.utils.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,9 +9,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.uppower.project.cashiermanagesystem.dao.RulesMapper;
 import org.uppower.project.cashiermanagesystem.dao.UsersMapper;
 import org.uppower.project.cashiermanagesystem.model.UserInfo;
+import org.uppower.project.cashiermanagesystem.model.dto.UserDiscountDto;
+import org.uppower.project.cashiermanagesystem.model.enums.DiscountAuthEnum;
 import org.uppower.project.cashiermanagesystem.model.result.RulesResult;
+import org.uppower.project.cashiermanagesystem.model.result.UserDiscountResult;
 import org.uppower.project.cashiermanagesystem.model.result.UserResult;
+import org.uppower.project.cashiermanagesystem.utils.MoneyManageUtil;
 import org.uppower.project.cashiermanagesystem.utils.redis.RedisTemplateService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * create by:
@@ -69,5 +77,22 @@ public class UserService {
             userResult.setGrade("王者");
 
         return Response.success(userResult);
+    }
+
+    public Response<List<UserDiscountResult>> getDiscount(UserInfo userInfo){
+
+        List<UserDiscountDto> userDiscountDtos = usersMapper.getDiscount(userInfo.getId());
+        List<UserDiscountResult> userDiscountResults = new ArrayList<>();
+        UserDiscountResult result;
+        for (UserDiscountDto dto:userDiscountDtos){
+            result = DataUtil.convert(dto,UserDiscountResult.class);
+            result.setDiscount(MoneyManageUtil.fenToYuan(dto.getDiscount()));
+            if (result.getPattern()- DiscountAuthEnum.FULL.getAuth()==0)
+                result.setName(DiscountAuthEnum.FULL.getName());
+            else
+                result.setName(DiscountAuthEnum.DISCOUNTS.getName());
+            userDiscountResults.add(result);
+        }
+        return Response.success(userDiscountResults);
     }
 }
