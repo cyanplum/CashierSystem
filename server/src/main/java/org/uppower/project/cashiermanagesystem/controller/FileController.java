@@ -58,7 +58,7 @@ public class FileController {
     @ApiOperation("文件上传")
     @PostMapping("/upload")
     @Transactional(rollbackFor = Exception.class)
-    public Response<FileInfoResult> upload(@ApiParam(required = true, value = "二进制文件流") @RequestParam MultipartFile file) {
+    public Response<FileInfoResult> upload(@ApiParam(required = true, value = "二进制文件流 file") @RequestParam MultipartFile file) {
         try {
             String md5 = DigestUtils.md5DigestAsHex(file.getBytes());
             minioTemplate.upload(CashierManageSystemApplication.BUCKET_NAME, md5 + "-" + file.getOriginalFilename(), file.getInputStream());
@@ -70,7 +70,7 @@ public class FileController {
         }
     }
 
-    @ApiOperation("文件下载")
+    @ApiOperation("文件下载,请求里面加个storeName属性")
     @GetMapping("/download")
     public void download(HttpServletRequest request,
                          HttpServletResponse response) throws Exception {

@@ -56,10 +56,6 @@ public class DiscountsEntity implements Serializable {
     @TableField("amount")
     private Integer amount;
 
-    @ApiModelProperty("存储名，用于在minio中查找数据")
-    @TableField("store_name")
-    private String storeName;
-
     @ApiModelProperty(value = "创建时间")
     @TableField("create_time")
     private LocalDateTime createTime;
