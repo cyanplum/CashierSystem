@@ -41,7 +41,7 @@ public class CashierManageSystemApplication {
     }
 
     //拦截所有请求
-    @Bean
+//    @Bean
     public TomcatServletWebServerFactory servletContainer() {
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
             @Override
@@ -59,7 +59,7 @@ public class CashierManageSystemApplication {
     }
 
     //配置http转https
-    @Bean
+//    @Bean
     public Connector httpConnector() {
         Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
         connector.setScheme("http");
