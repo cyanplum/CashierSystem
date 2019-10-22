@@ -28,15 +28,15 @@ import java.util.List;
 @NoArgsConstructor
 public class UserInfo {
 
-    private Integer id;
+    private Integer userId;
 
-    private String openId;
+    private String openId = "";
 
-    private String sessionKey;
+    private String sessionKey = "";
 
-    private String name;
+    private String nickname = "";
 
-    private String phone;
+    private String phone = "";
 
     private List<String> roles;
 

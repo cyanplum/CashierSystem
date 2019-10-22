@@ -39,6 +39,10 @@ public class UsersEntity implements Serializable {
     @TableField("open_id")
     private String openId;
 
+    @ApiModelProperty(value = "名字")
+    @TableField("nickname")
+    private String nickname;
+
     @ApiModelProperty(value = "电话号")
     @TableField("phone")
     private String phone;

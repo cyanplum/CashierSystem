@@ -1,10 +1,15 @@
-package org.uppower.project.cashiermanagesystem.controller;
+package org.uppower.project.cashiermanagesystem.model.vo;
 
-import cn.windyrjc.utils.response.Response;
-import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 
 /**
  * █████▒█      ██  ▄████▄   ██ ▄█▀       ██████╗ ██╗   ██╗ ██████╗
@@ -18,18 +23,22 @@ import org.springframework.web.bind.annotation.RestController;
  * ░     ░ ░      ░  ░
  *
  * @author ：涂齐康
- * @date ：Created in 2019/10/7 12:10 上午
+ * @date ：Created in 2019/10/22 2:51 下午
  * @description：
  * @modified By：
  * @version:
  */
-@RequestMapping("/ci")
-@RestController
-@Api(value = "测试ci",description = "持续集成")
-public class CiController {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserRegisterVo {
 
-    @GetMapping("/out")
-    public Response<String> out(){
-        return Response.success("持续集成测试：version6");
-    }
+    @ApiModelProperty(value = "电话号")
+    private String phone;
+
+    @ApiModelProperty(value = "名字")
+    private String nickname;
+
+    @ApiModelProperty(value = "生日")
+    private LocalDate birthday;
 }
