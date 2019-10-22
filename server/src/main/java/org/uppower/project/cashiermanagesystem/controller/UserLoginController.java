@@ -93,13 +93,13 @@ public class UserLoginController implements AuthenticationService<UserLoginVO> {
         Integer errcode = Integer.valueOf(jsonObject.get("errcode") + "");
 
         //判断是否成功请求微信request接口
-        /*if (errcode == null) {
+        if (errcode == null) {
             throw new ServerException("请求失败");
         } else {
             if (errcode - WeChatErrcodeEnum.SUCCESS.getCode() != 0) {
                 throw new ServerException(WeChatErrcodeEnum.getMsgByCode(errcode));
             }
-        }*/
+        }
 
         System.out.println("session_key==" + seesionKey);
         System.out.println("openid==" + openid);
