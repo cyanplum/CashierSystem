@@ -108,13 +108,13 @@ public class UserLoginController implements AuthenticationService<UserLoginVO> {
         List<String> roles = Arrays.asList("ADMIN", "BOSS");
         List<String> permission = Arrays.asList("VIEW");
         UserInfo userInfo = new UserInfo();
-        userInfo.setName("Tu");
+        userInfo.setNickname("tu");
         userInfo.setOpenId(openid);
         userInfo.setPermissions(permission);
         userInfo.setPhone("21214124");
         userInfo.setSessionKey(seesionKey);
         userInfo.setRoles(roles);
-        userInfo.setId(1);
+        userInfo.setUserId(1);
         UserDetails userDetails = new UserDetails();
         userDetails.setPermissions(permission);
         userDetails.setUserDetail(userInfo);
