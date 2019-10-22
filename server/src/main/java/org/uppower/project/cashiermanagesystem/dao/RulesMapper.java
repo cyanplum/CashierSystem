@@ -16,5 +16,5 @@ import java.util.List;
  */
 public interface RulesMapper extends BaseMapper<RulesEntity> {
 
-    List<RulesResult> index();
+    RulesResult index();
 }

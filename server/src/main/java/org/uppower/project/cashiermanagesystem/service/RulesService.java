@@ -4,11 +4,13 @@ import cn.windyrjc.utils.copy.DataUtil;
 import cn.windyrjc.utils.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.uppower.project.cashiermanagesystem.dao.RulesMapper;
 import org.uppower.project.cashiermanagesystem.exceptions.ServerException;
 import org.uppower.project.cashiermanagesystem.model.entity.RulesEntity;
 import org.uppower.project.cashiermanagesystem.model.result.RulesResult;
 import org.uppower.project.cashiermanagesystem.model.vo.RulesVO;
+import org.uppower.project.cashiermanagesystem.utils.redis.RedisTemplateService;
 
 import java.util.List;
 
@@ -29,7 +31,11 @@ public class RulesService {
     @Autowired
     RulesMapper rulesMapper;
 
-    public Response<List<RulesResult>> index(){
+    @Autowired
+    RedisTemplateService redisTemplateService;
+
+    public Response<RulesResult> index(){
+
         return Response.success(rulesMapper.index());
     }
 
@@ -43,15 +49,29 @@ public class RulesService {
             return rulesMapper.insert(entity)==1 ? Response.success() : Response.fail("新增失败");
         }
     }
-
+/*
     public Response delete(Integer id) {
 
         return rulesMapper.deleteById(id)==1 ? Response.success() : Response.fail("删除失败");
-    }
-
+    }*/
+    @Transactional(rollbackFor = Exception.class)
     public Response update(Integer id,RulesVO rulesVO) {
         RulesEntity entity = DataUtil.convert(rulesVO,RulesEntity.class);
         entity.setId(id);
+        rulesMapper.updateById(entity);
+
+        synchronized (RedisTemplateService.class){
+            redisTemplateService.del("规则");
+            RulesResult rulesResult = rulesMapper.index();
+            /*
+            try {
+                Thread.sleep(30000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }*/
+            redisTemplateService.set("规则",rulesResult,7200);
+        }
+
         return rulesMapper.updateById(entity)==1 ? Response.success() : Response.fail("修改失败");
     }
 }
