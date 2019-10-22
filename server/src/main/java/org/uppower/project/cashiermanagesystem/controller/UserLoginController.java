@@ -114,6 +114,7 @@ public class UserLoginController implements AuthenticationService<UserLoginVO> {
         userInfo.setPhone("21214124");
         userInfo.setSessionKey(seesionKey);
         userInfo.setRoles(roles);
+        userInfo.setId(1);
         UserDetails userDetails = new UserDetails();
         userDetails.setPermissions(permission);
         userDetails.setUserDetail(userInfo);

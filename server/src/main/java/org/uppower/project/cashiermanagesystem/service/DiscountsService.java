@@ -4,14 +4,18 @@ import cn.windyrjc.utils.copy.DataUtil;
 import cn.windyrjc.utils.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.uppower.project.cashiermanagesystem.dao.DiscountsMapper;
+import org.uppower.project.cashiermanagesystem.dao.RolesMapper;
 import org.uppower.project.cashiermanagesystem.model.dto.DiscountsDto;
 import org.uppower.project.cashiermanagesystem.model.entity.DiscountsEntity;
 import org.uppower.project.cashiermanagesystem.model.enums.DiscountAuthEnum;
 import org.uppower.project.cashiermanagesystem.model.result.DiscountsResult;
+import org.uppower.project.cashiermanagesystem.model.result.RolesResult;
 import org.uppower.project.cashiermanagesystem.model.vo.DiscountsVO;
 import org.uppower.project.cashiermanagesystem.utils.MoneyManageUtil;
 
+import javax.management.relation.RoleResult;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +36,9 @@ public class DiscountsService {
     @Autowired
     DiscountsMapper discountsMapper;
 
+    @Autowired
+    RolesMapper rolesMapper;
+
     public Response<List<DiscountsResult>> index(){
         List<DiscountsDto> discountsDto = discountsMapper.index();
         List<DiscountsResult> discountsResults = new ArrayList<>();
@@ -48,13 +55,18 @@ public class DiscountsService {
         return Response.success(discountsResults);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public Response store(DiscountsVO discountsVO){
         DiscountsEntity discountsEntity;
         discountsEntity = DataUtil.convert(discountsVO,DiscountsEntity.class);
         discountsEntity.setDiscount(MoneyManageUtil.yuanToFen(discountsVO.getDiscount()));
         discountsEntity.setPattern(DiscountAuthEnum.getCodeByMsg(discountsVO.getName()));
-        if (discountsVO.getAuth().equals("会员"))
-            discountsEntity.setAuth(3);
+        List<RolesResult> list = rolesMapper.list();
+        for (RolesResult rolesResult : list)
+        {
+            if (discountsVO.getAuth()-rolesResult.getId()==0)
+                discountsEntity.setAuth(rolesResult.getId());
+        }
         return discountsMapper.insert(discountsEntity)==1 ? Response.success() : Response.fail("新增失败");
     }
 

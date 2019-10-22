@@ -1,10 +1,8 @@
-package org.uppower.project.cashiermanagesystem.model.vo;
+package org.uppower.project.cashiermanagesystem.model.result;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -17,13 +15,11 @@ import java.time.LocalDateTime;
  * * | |_| |_    / /       | |   | |/   |/ /
  * * \_______|  /_/        |_|  |___/|___/
  *
- * @date 2019/10/18 16:24
+ * @date 2019/10/2121:10
  */
+@ApiModel("用户优惠劵返回集")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@ApiModel("优惠劵添加参数集")
-public class DiscountsVO {
+public class UserDiscountResult {
 
     @ApiModelProperty(value = "id")
     private Integer id;
@@ -43,15 +39,12 @@ public class DiscountsVO {
     @ApiModelProperty(value = "打折数")
     private Double discount;
 
-    @ApiModelProperty(value = "权限")
-    private Integer auth;
-
-    @ApiModelProperty(value = "数量 -1 代表无限")
-    private Integer amount;
-
     @ApiModelProperty(value = "开始时间")
     private LocalDateTime startTime;
 
     @ApiModelProperty(value = "结束时间")
     private LocalDateTime endTime;
+
+    @ApiModelProperty(value = "0未使用 1已使用 2 未到时间 3 已过期")
+    private Integer status;
 }

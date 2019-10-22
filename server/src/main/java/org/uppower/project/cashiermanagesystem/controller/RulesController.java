@@ -31,7 +31,7 @@ public class RulesController {
 
     @ApiOperation("查询规则")
     @GetMapping
-    public Response<List<RulesResult>> index(){
+    public Response<RulesResult> index(){
         return rulesService.index();
     }
 
@@ -40,12 +40,12 @@ public class RulesController {
     public Response store(@RequestBody RulesVO rulesVO){
         return rulesService.store(rulesVO);
     }
-
+/*
     @ApiOperation("删除规则")
     @DeleteMapping
     public Response delete(@RequestParam("id") Integer id){
         return rulesService.delete(id);
-    }
+    }*/
 
     @ApiOperation("修改规则")
     @PatchMapping
