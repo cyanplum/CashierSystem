@@ -3,7 +3,6 @@ package org.uppower.project.cashiermanagesystem.service;
 import cn.windyrjc.utils.copy.DataUtil;
 import cn.windyrjc.utils.response.Response;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.apache.ibatis.javassist.compiler.CodeGen;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,31 +54,38 @@ public class UserService {
 
     private Pattern regex = Pattern.compile("^1[345789]\\d{9}$");
 
+    private Object lock = new Object();
+
+    private static final String RULE_KEY = "userRole";
+
+    private static final Integer EXPIRE = 60 * 60 * 2;
+
     @Transactional(rollbackFor = Exception.class)
     public Response<UserResult> index(UserInfo userInfo) {
 
         UserResult userResult = usersMapper.show(userInfo.getUserId());
         RulesResult rulesResult;
-        if (redisTemplateService.get("规则", RulesResult.class) != null) {
-            rulesResult = redisTemplateService.get("规则", RulesResult.class);
-        } else {
-            synchronized (RedisTemplateService.class) {
-                rulesResult = rulesMapper.index();
-                redisTemplateService.set("规则", rulesResult, 7200);
+        if ((rulesResult = redisTemplateService.get(RULE_KEY, RulesResult.class)) == null) {
+            synchronized (lock) {
+                if ((rulesResult = redisTemplateService.get(RULE_KEY, RulesResult.class)) == null) {
+                    rulesResult = rulesMapper.index();
+                    redisTemplateService.set(RULE_KEY, rulesResult, EXPIRE);
+                }
             }
         }
-        if (userResult.getExperience() >= 0 && userResult.getExperience() < rulesResult.getBronze())
+        if (userResult.getExperience() >= 0 && userResult.getExperience() < rulesResult.getBronze()) {
             userResult.setGrade("青铜");
-        else if (userResult.getExperience() >= rulesResult.getBronze() && userResult.getExperience() < rulesResult.getSilver())
+        } else if (userResult.getExperience() >= rulesResult.getBronze() && userResult.getExperience() < rulesResult.getSilver()) {
             userResult.setGrade("白银");
-        else if (userResult.getExperience() >= rulesResult.getSilver() && userResult.getExperience() < rulesResult.getGold())
+        } else if (userResult.getExperience() >= rulesResult.getSilver() && userResult.getExperience() < rulesResult.getGold()) {
             userResult.setGrade("黄金");
-        else if (userResult.getExperience() >= rulesResult.getGold() && userResult.getExperience() < rulesResult.getPlatinum())
+        } else if (userResult.getExperience() >= rulesResult.getGold() && userResult.getExperience() < rulesResult.getPlatinum()) {
             userResult.setGrade("铂金");
-        else if (userResult.getExperience() >= rulesResult.getPlatinum() && userResult.getExperience() < rulesResult.getDiamond())
+        } else if (userResult.getExperience() >= rulesResult.getPlatinum() && userResult.getExperience() < rulesResult.getDiamond()) {
             userResult.setGrade("钻石");
-        else if (userResult.getExperience() >= rulesResult.getDiamond())
+        } else if (userResult.getExperience() >= rulesResult.getDiamond()) {
             userResult.setGrade("王者");
+        }
 
         return Response.success(userResult);
     }
@@ -92,10 +98,11 @@ public class UserService {
         for (UserDiscountDto dto : userDiscountDtos) {
             result = DataUtil.convert(dto, UserDiscountResult.class);
             result.setDiscount(MoneyManageUtil.fenToYuan(dto.getDiscount()));
-            if (result.getPattern() - DiscountAuthEnum.FULL.getAuth() == 0)
+            if (result.getPattern() - DiscountAuthEnum.FULL.getAuth() == 0) {
                 result.setName(DiscountAuthEnum.FULL.getName());
-            else
+            } else {
                 result.setName(DiscountAuthEnum.DISCOUNTS.getName());
+            }
             userDiscountResults.add(result);
         }
         return Response.success(userDiscountResults);
