@@ -39,19 +39,19 @@ public class DiscountsController {
 
     @ApiOperation("增加优惠劵")
     @PostMapping
-    public Response store(@RequestBody DiscountsVO discountsVO){
+    public Response store(@ApiParam("新增优惠劵的信息")@RequestBody DiscountsVO discountsVO){
         return discountsService.store(discountsVO);
     }
 
     @ApiOperation("删除优惠劵")
     @DeleteMapping("/{id}")
-    public Response delete(@ApiParam("优惠劵id") @PathVariable Integer id){
+    public Response delete(@ApiParam("优惠劵id") @PathVariable("id") Integer id){
         return discountsService.delete(id);
     }
 
     @PatchMapping("/{id}")
     @ApiOperation("修改优惠劵")
-    public Response update(@ApiParam("修改的优惠劵的id") @PathVariable Integer id,@ApiParam("修改的优惠劵信息") @RequestBody DiscountsVO discountsVO){
+    public Response update(@ApiParam("修改的优惠劵的id") @PathVariable("id") Integer id,@ApiParam("修改的优惠劵信息") @RequestBody DiscountsVO discountsVO){
         return discountsService.update(id,discountsVO);
     }
 

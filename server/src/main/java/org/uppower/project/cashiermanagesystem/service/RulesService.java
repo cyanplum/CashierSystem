@@ -34,6 +34,10 @@ public class RulesService {
     @Autowired
     RedisTemplateService redisTemplateService;
 
+    private static final String RULE_KEY = "userRole";
+
+    private static final Integer EXPIRE = 60 * 60 * 2;
+
     public Response<RulesResult> index(){
 
         return Response.success(rulesMapper.index());
@@ -58,20 +62,10 @@ public class RulesService {
     public Response update(Integer id,RulesVO rulesVO) {
         RulesEntity entity = DataUtil.convert(rulesVO,RulesEntity.class);
         entity.setId(id);
-        rulesMapper.updateById(entity);
-
-        synchronized (RedisTemplateService.class){
-            redisTemplateService.del("规则");
-            RulesResult rulesResult = rulesMapper.index();
-            /*
-            try {
-                Thread.sleep(30000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }*/
-            redisTemplateService.set("规则",rulesResult,7200);
-        }
-
-        return rulesMapper.updateById(entity)==1 ? Response.success() : Response.fail("修改失败");
+        Integer i = rulesMapper.updateById(entity);
+        redisTemplateService.del(RULE_KEY);
+        RulesResult rulesResult = rulesMapper.index();
+        redisTemplateService.set(RULE_KEY,rulesResult,EXPIRE);
+        return i==1 ? Response.success() : Response.fail("修改失败");
     }
 }

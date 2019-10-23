@@ -16,10 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.uppower.project.cashiermanagesystem.dao.UsersMapper;
 import org.uppower.project.cashiermanagesystem.exceptions.ServerException;
 import org.uppower.project.cashiermanagesystem.model.UserInfo;
 import org.uppower.project.cashiermanagesystem.model.UserLoginVO;
-import org.uppower.project.cashiermanagesystem.model.enums.WeChatErrcodeEnum;
 import org.uppower.project.cashiermanagesystem.utils.AppPropertiesUtil;
 
 import java.io.IOException;
@@ -52,6 +53,9 @@ public class UserLoginController implements AuthenticationService<UserLoginVO> {
 
     @Autowired
     private AppPropertiesUtil appPropertiesUtil;
+
+    @Autowired
+    private UsersMapper usersMapper;
 
     @NotNull
     @Override
@@ -93,33 +97,32 @@ public class UserLoginController implements AuthenticationService<UserLoginVO> {
         Integer errcode = Integer.valueOf(jsonObject.get("errcode") + "");
 
         //判断是否成功请求微信request接口
-        if (errcode == null) {
-            throw new ServerException("请求失败");
-        } else {
-            if (errcode - WeChatErrcodeEnum.SUCCESS.getCode() != 0) {
-                throw new ServerException(WeChatErrcodeEnum.getMsgByCode(errcode));
-            }
-        }
+//        if (errcode == null) {
+//            throw new ServerException("请求失败");
+//        } else {
+//            if (errcode - WeChatErrcodeEnum.SUCCESS.getCode() != 0) {
+//                throw new ServerException(WeChatErrcodeEnum.getMsgByCode(errcode));
+//            }
+//        }
 
         System.out.println("session_key==" + seesionKey);
         System.out.println("openid==" + openid);
-
-
+        openid = "999";
         List<String> roles = Arrays.asList("ADMIN", "BOSS");
         List<String> permission = Arrays.asList("VIEW");
-        UserInfo userInfo = new UserInfo();
-        userInfo.setName("Tu");
-        userInfo.setOpenId(openid);
-        userInfo.setPermissions(permission);
-        userInfo.setPhone("21214124");
-        userInfo.setSessionKey(seesionKey);
-        userInfo.setRoles(roles);
-        userInfo.setId(1);
+        UserInfo userInfo = null;
+        userInfo = usersMapper.selectByOpenId(openid);
+        if (userInfo == null) {
+            userInfo = new UserInfo();
+            userInfo.setOpenId(openid);
+            usersMapper.insertAndGetId(userInfo);
+            roles = Arrays.asList("A");
+        }
         UserDetails userDetails = new UserDetails();
         userDetails.setPermissions(permission);
         userDetails.setUserDetail(userInfo);
         userDetails.setRoles(roles);
-        userDetails.setId("1");
+        userDetails.setId(userInfo.getOpenId());
         return userDetails;
     }
 }
