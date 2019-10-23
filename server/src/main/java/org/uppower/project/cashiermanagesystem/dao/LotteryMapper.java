@@ -1,5 +1,7 @@
 package org.uppower.project.cashiermanagesystem.dao;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
 import org.uppower.project.cashiermanagesystem.model.entity.LotteryEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -17,7 +19,7 @@ import java.util.List;
  */
 public interface LotteryMapper extends BaseMapper<LotteryEntity> {
 
-    List<LotteryDto> index();
+    IPage<LotteryDto> index(Page page);
 
     Integer isShow(@Param("id") Integer id, @Param("isShow") Integer isShow);
 }

@@ -1,6 +1,7 @@
 package org.uppower.project.cashiermanagesystem.controller;
 
 import cn.windyrjc.utils.response.Response;
+import cn.windyrjc.utils.response.ResponsePage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
@@ -36,8 +37,8 @@ public class LotteryController {
 
     @ApiOperation("抽奖池的查询")
     @GetMapping
-    public Response<List<LotteryResult>> index(){
-        return lotteryService.index();
+    public ResponsePage<LotteryResult> index(@RequestParam(value = "pn",defaultValue = "1")Integer pn){
+        return lotteryService.index(pn);
     }
 
     @ApiOperation("抽奖池的插入")

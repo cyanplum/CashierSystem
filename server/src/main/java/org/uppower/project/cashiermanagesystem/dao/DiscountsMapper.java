@@ -1,6 +1,8 @@
 package org.uppower.project.cashiermanagesystem.dao;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.uppower.project.cashiermanagesystem.model.dto.DiscountsDto;
 import org.uppower.project.cashiermanagesystem.model.entity.DiscountsEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -18,5 +20,5 @@ import java.util.List;
 public interface DiscountsMapper extends BaseMapper<DiscountsEntity> {
 
 
-    List<DiscountsDto> index();
+    IPage<DiscountsDto> index(Page page);
 }

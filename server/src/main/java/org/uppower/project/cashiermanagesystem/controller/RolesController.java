@@ -1,11 +1,13 @@
 package org.uppower.project.cashiermanagesystem.controller;
 
 import cn.windyrjc.utils.response.Response;
+import cn.windyrjc.utils.response.ResponsePage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.uppower.project.cashiermanagesystem.model.result.RolesResult;
 import org.uppower.project.cashiermanagesystem.service.RolesService;
@@ -33,7 +35,7 @@ public class RolesController{
 
     @ApiOperation("查看所有权限")
     @GetMapping
-    public Response<List<RolesResult>> index(){
-        return rolesService.index();
+    public ResponsePage<RolesResult> index(@RequestParam(value = "pn",defaultValue = "1")Integer pn){
+        return rolesService.index(pn);
     }
 }

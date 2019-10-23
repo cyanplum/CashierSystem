@@ -19,7 +19,11 @@
         from discounts  as a
         inner join user_discount as b
         where a.id=b.discount_id
-        and b.user_id=#{id};
+        and b.user_id=#{id}
+        <if test="status!=null ">
+            and b.status=#{status}
+        </if>
+        order by a.start_time desc
     </select>
 
     <select id="selectByOpenId" resultType="org.uppower.project.cashiermanagesystem.model.UserInfo">
@@ -51,4 +55,7 @@
         </if>
         where open_id = #{openId}
     </update>
+    <select id="selectVipById" resultType="java.lang.String">
+        select phone from users where id =#{userId}
+    </select>
 </mapper>
