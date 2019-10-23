@@ -3,6 +3,7 @@ package org.uppower.project.cashiermanagesystem.controller;
 import cn.windyrjc.utils.response.Response;
 import cn.windyrjc.utils.response.ResponsePage;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,27 +37,32 @@ public class AdvertisingController {
     private AdvertisingService advertisingService;
 
     @GetMapping("/{id}")
+    @ApiOperation("查看某广告信息")
     public Response<AdvertisingResult> index(@PathVariable Integer id) {
         return advertisingService.index(id);
     }
 
     @GetMapping
+    @ApiOperation("拿到广告列表")
     public ResponsePage<AdvertisingResult> list(@RequestParam(value = "pn", defaultValue = "1") @ApiParam("页码") Integer pn,
                                                 @RequestParam(value = "status", required = false) @ApiParam("显示状态0显示 1不显示") Integer status) {
-        return advertisingService.list(pn,status);
+        return advertisingService.list(pn, status);
     }
 
     @PostMapping
+    @ApiOperation("添加一个广告")
     public Response store(@RequestBody AdvertisingVo vo) {
         return advertisingService.store(vo);
     }
 
     @PatchMapping("/{id}")
+    @ApiOperation("修改一个广告")
     public Response update(@PathVariable Integer id, @RequestBody AdvertisingVo vo) {
         return advertisingService.update(id, vo);
     }
 
     @DeleteMapping("/{id}")
+    @ApiOperation("删除一个广告")
     public Response deleted(@PathVariable Integer id) {
         return advertisingService.deleted(id);
     }
