@@ -1,6 +1,6 @@
 package org.uppower.project.cashiermanagesystem.dao;
 
-import org.uppower.project.cashiermanagesystem.model.entity.OprationLogEntity;
+import org.uppower.project.cashiermanagesystem.model.entity.OperationLogEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author tuqikang
  * @since 2019-10-13
  */
-public interface OprationLogMapper extends BaseMapper<OprationLogEntity> {
+public interface OprationLogMapper extends BaseMapper<OperationLogEntity> {
 
 }
