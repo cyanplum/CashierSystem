@@ -3,6 +3,7 @@ package org.uppower.project.cashiermanagesystem.controller;
 import cn.windyrjc.utils.response.Response;
 import com.baomidou.mybatisplus.extension.api.R;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.uppower.project.cashiermanagesystem.model.result.RulesResult;
@@ -37,7 +38,7 @@ public class RulesController {
 
     @ApiOperation("新增规则")
     @PostMapping
-    public Response store(@RequestBody RulesVO rulesVO){
+    public Response store(@ApiParam("新增规则的信息")@RequestBody RulesVO rulesVO){
         return rulesService.store(rulesVO);
     }
 /*
@@ -48,8 +49,8 @@ public class RulesController {
     }*/
 
     @ApiOperation("修改规则")
-    @PatchMapping
-    public Response update(@RequestParam("id") Integer id,@RequestBody RulesVO rulesVO){
+    @PatchMapping("/{id}")
+    public Response update(@ApiParam("修改规则的id") @PathVariable("id") Integer id, @ApiParam("修改规则的信息")@RequestBody RulesVO rulesVO){
         return rulesService.update(id,rulesVO);
     }
 }

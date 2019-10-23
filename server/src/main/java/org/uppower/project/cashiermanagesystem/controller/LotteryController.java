@@ -41,8 +41,8 @@ public class LotteryController {
     }
 
     @ApiOperation("抽奖池的插入")
-    @GetMapping("/store")
-    public Response store(@ApiParam("抽奖劵的id") @RequestParam("id") Integer id){
+    @GetMapping("/{id}")
+    public Response store(@ApiParam("抽奖劵的id") @PathVariable("id") Integer id){
         return lotteryService.store(id);
     }
 
@@ -53,8 +53,8 @@ public class LotteryController {
     }
 
     @ApiOperation("抽奖池的删除")
-    @DeleteMapping
-    public Response delete(@ApiParam("奖池抽奖劵的id") @RequestParam("id") Integer id){
+    @DeleteMapping("/{id}")
+    public Response delete(@ApiParam("奖池抽奖劵的id") @PathVariable("id") Integer id){
         return lotteryService.delete(id);
     }
 }
