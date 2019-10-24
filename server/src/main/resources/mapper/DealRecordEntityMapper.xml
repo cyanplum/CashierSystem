@@ -9,4 +9,8 @@
             resultType="org.uppower.project.cashiermanagesystem.model.entity.DealRecordEntity">
         select * from deal_record where id=#{id}
     </select>
+    <select id="selectByUserId"
+            resultType="org.uppower.project.cashiermanagesystem.model.entity.DealRecordEntity">
+        select * from deal_record where user_id = #{userId}
+    </select>
 </mapper>

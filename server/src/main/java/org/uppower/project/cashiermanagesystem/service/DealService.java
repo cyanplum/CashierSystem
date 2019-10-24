@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.uppower.project.cashiermanagesystem.dao.DealRecordMapper;
 import org.uppower.project.cashiermanagesystem.model.entity.DealRecordEntity;
-import org.uppower.project.cashiermanagesystem.model.entity.jsonobject.Commodityinfo;
+import org.uppower.project.cashiermanagesystem.model.entity.jsonobject.CommodityInfo;
 import org.uppower.project.cashiermanagesystem.utils.FastJsonUtil;
 
 import java.util.ArrayList;
@@ -39,15 +39,15 @@ public class DealService {
         DealRecordEntity dre = new DealRecordEntity();
         dre.setTotalPrices(100);
         dre.setUserId(1);
-        List<Commodityinfo> commodityinfos = new ArrayList<>();
+        List<CommodityInfo> commodityInfos = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            Commodityinfo commodityinfo = new Commodityinfo();
+            CommodityInfo commodityinfo = new CommodityInfo();
             commodityinfo.setBarcode(i + "");
             commodityinfo.setName(i + "");
             commodityinfo.setPrice(i * 10);
-            commodityinfos.add(commodityinfo);
+            commodityInfos.add(commodityinfo);
         }
-        String s = FastJsonUtil.convertObjectToJSON(commodityinfos);
+        String s = FastJsonUtil.convertObjectToJSON(commodityInfos);
         dre.setCommodity(s);
         int success = dealRecordMapper.insertEntity(dre);
         if (success != 1) {
@@ -61,8 +61,8 @@ public class DealService {
         DealRecordEntity dealRecordEntity = dealRecordMapper.selectForId(2);
         System.out.println(dealRecordEntity.getCreateTime());
         String s = dealRecordEntity.getCommodity();
-        List<Commodityinfo> commodityinfos = FastJsonUtil.toList(s, Commodityinfo.class);
-        for (Commodityinfo c : commodityinfos) {
+        List<CommodityInfo> commodityInfos = FastJsonUtil.toList(s, CommodityInfo.class);
+        for (CommodityInfo c : commodityInfos) {
             System.out.println(c.getBarcode() + "\t" + c.getName() + "\t" + c.getPrice());
         }
     }

@@ -31,7 +31,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class Commodityinfo implements Serializable {
+public class CommodityInfo implements Serializable {
     @ApiModelProperty("商品条形码")
     private String barcode;
 
