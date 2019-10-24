@@ -2,9 +2,13 @@ package org.uppower.project.cashiermanagesystem.service;
 
 import cn.windyrjc.utils.copy.DataUtil;
 import cn.windyrjc.utils.response.Response;
+import cn.windyrjc.utils.response.ResponsePage;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.uppower.project.cashiermanagesystem.CashierManageSystemApplication;
 import org.uppower.project.cashiermanagesystem.dao.DiscountsMapper;
 import org.uppower.project.cashiermanagesystem.dao.RolesMapper;
 import org.uppower.project.cashiermanagesystem.model.dto.DiscountsDto;
@@ -18,6 +22,7 @@ import org.uppower.project.cashiermanagesystem.utils.MoneyManageUtil;
 import javax.management.relation.RoleResult;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * create by:
@@ -39,29 +44,30 @@ public class DiscountsService {
     @Autowired
     RolesMapper rolesMapper;
 
-    public Response<List<DiscountsResult>> index(){
-        List<DiscountsDto> discountsDto = discountsMapper.index();
-        List<DiscountsResult> discountsResults = new ArrayList<>();
-        DiscountsResult result;
-        for(DiscountsDto dto:discountsDto){
-            result=DataUtil.convert(dto,DiscountsResult.class);
-            result.setDiscount(MoneyManageUtil.fenToYuan(dto.getDiscount()));
-            if (DiscountAuthEnum.FULL.getAuth()-dto.getPattern()==0)
+    public ResponsePage<DiscountsResult> index(Integer pn){
+        Page page = new Page(pn, CashierManageSystemApplication.PAGESIZE);
+        IPage<DiscountsDto> discountsDto = discountsMapper.index(page);
+        List<DiscountsResult> discountsResults = null;
+        discountsResults = discountsDto.getRecords().stream().map(p->{
+            DiscountsResult result = DataUtil.convert(p,DiscountsResult.class);
+            result.setDiscount(MoneyManageUtil.fenToYuan(p.getDiscount()));
+            if (DiscountAuthEnum.FULL.getAuth()-p.getPattern()==0)
                 result.setName(DiscountAuthEnum.FULL.getName());
             else
                 result.setName(DiscountAuthEnum.DISCOUNTS.getName());
-            discountsResults.add(result);
-        }
-        return Response.success(discountsResults);
+            return result;
+        }).collect(Collectors.toList());
+        return ResponsePage.success(discountsResults,discountsDto.getPages(),discountsDto.getTotal());
     }
 
     @Transactional(rollbackFor = Exception.class)
     public Response store(DiscountsVO discountsVO){
+        Page page = new Page(1, CashierManageSystemApplication.PAGESIZE);
         DiscountsEntity discountsEntity;
         discountsEntity = DataUtil.convert(discountsVO,DiscountsEntity.class);
         discountsEntity.setDiscount(MoneyManageUtil.yuanToFen(discountsVO.getDiscount()));
         discountsEntity.setPattern(DiscountAuthEnum.getCodeByMsg(discountsVO.getName()));
-        List<RolesResult> list = rolesMapper.list();
+        List<RolesResult> list = rolesMapper.list(page).getRecords();
         for (RolesResult rolesResult : list)
         {
             if (discountsVO.getAuth()-rolesResult.getId()==0)

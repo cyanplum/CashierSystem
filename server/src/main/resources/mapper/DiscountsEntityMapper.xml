@@ -8,6 +8,6 @@
         a.amount,a.create_time,a.start_time,a.end_time
         from discounts as a
         inner join roles as b
-        where a.auth=b.id;
+        where a.auth=b.id
     </select>
 </mapper>

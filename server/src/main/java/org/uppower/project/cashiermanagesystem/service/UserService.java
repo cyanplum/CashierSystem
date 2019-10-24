@@ -2,10 +2,14 @@ package org.uppower.project.cashiermanagesystem.service;
 
 import cn.windyrjc.utils.copy.DataUtil;
 import cn.windyrjc.utils.response.Response;
+import cn.windyrjc.utils.response.ResponsePage;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.uppower.project.cashiermanagesystem.CashierManageSystemApplication;
 import org.uppower.project.cashiermanagesystem.dao.RulesMapper;
 import org.uppower.project.cashiermanagesystem.dao.UsersMapper;
 import org.uppower.project.cashiermanagesystem.exceptions.ServerException;
@@ -24,6 +28,7 @@ import org.uppower.project.cashiermanagesystem.utils.redis.RedisTemplateService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * create by:
@@ -90,22 +95,23 @@ public class UserService {
         return Response.success(userResult);
     }
 
-    public Response<List<UserDiscountResult>> getDiscount(UserInfo userInfo) {
+    public ResponsePage<UserDiscountResult> getDiscount(UserInfo userInfo, Integer pn, Integer status) {
+        Page page = new Page(pn, CashierManageSystemApplication.PAGESIZE);
+        IPage<UserDiscountDto> userDiscountDtos = usersMapper.getDiscount(page,userInfo.getUserId(),status);
+        List<UserDiscountResult> userDiscountResults = null;
+        userDiscountResults = userDiscountDtos.getRecords().stream().map(p->{
 
-        List<UserDiscountDto> userDiscountDtos = usersMapper.getDiscount(userInfo.getUserId());
-        List<UserDiscountResult> userDiscountResults = new ArrayList<>();
-        UserDiscountResult result;
-        for (UserDiscountDto dto : userDiscountDtos) {
-            result = DataUtil.convert(dto, UserDiscountResult.class);
-            result.setDiscount(MoneyManageUtil.fenToYuan(dto.getDiscount()));
+            UserDiscountResult result = DataUtil.convert(p,UserDiscountResult.class);
+            result.setDiscount(MoneyManageUtil.fenToYuan(p.getDiscount()));
             if (result.getPattern() - DiscountAuthEnum.FULL.getAuth() == 0) {
                 result.setName(DiscountAuthEnum.FULL.getName());
             } else {
                 result.setName(DiscountAuthEnum.DISCOUNTS.getName());
             }
-            userDiscountResults.add(result);
-        }
-        return Response.success(userDiscountResults);
+            return result;
+        }).collect(Collectors.toList());
+        System.out.println(userInfo.getUserId());
+        return ResponsePage.success(userDiscountResults,userDiscountDtos.getPages(),userDiscountDtos.getTotal());
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -139,5 +145,9 @@ public class UserService {
             throw new ServerException("修改，服务器错误");
         }
         return Response.success();
+    }
+
+    public Response vip(UserInfo userInfo) {
+        return Response.success(usersMapper.selectVipById(userInfo.getUserId()));
     }
 }

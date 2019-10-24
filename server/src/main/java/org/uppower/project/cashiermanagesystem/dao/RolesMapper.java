@@ -1,5 +1,7 @@
 package org.uppower.project.cashiermanagesystem.dao;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.uppower.project.cashiermanagesystem.model.entity.RolesEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.uppower.project.cashiermanagesystem.model.result.RolesResult;
@@ -17,5 +19,5 @@ import java.util.List;
 public interface RolesMapper extends BaseMapper<RolesEntity> {
 
 
-        List<RolesResult> list();
+        IPage<RolesResult> list(Page page);
 }

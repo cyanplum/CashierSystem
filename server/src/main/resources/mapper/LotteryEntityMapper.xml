@@ -9,6 +9,6 @@
     SELECT a.id,a.status,b.pattern,b.target,b.remission,b.discount,b.auth,b.start_time,b.end_time
     FROM lottery as a
     inner join discounts as b
-    where a.discount_id = b.id;
+    where a.discount_id = b.id
     </select>
 </mapper>

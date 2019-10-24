@@ -1,8 +1,11 @@
 package org.uppower.project.cashiermanagesystem.service;
 
-import cn.windyrjc.utils.response.Response;
+import cn.windyrjc.utils.response.ResponsePage;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.uppower.project.cashiermanagesystem.CashierManageSystemApplication;
 import org.uppower.project.cashiermanagesystem.dao.RolesMapper;
 import org.uppower.project.cashiermanagesystem.model.result.RolesResult;
 
@@ -25,7 +28,9 @@ public class RolesService {
     @Autowired
     RolesMapper rolesMapper;
 
-    public Response<List<RolesResult>>index(){
-        return Response.success(rolesMapper.list());
+    public ResponsePage<RolesResult> index(Integer pn){
+        Page page = new Page(pn, CashierManageSystemApplication.PAGESIZE);
+        IPage<RolesResult> result= rolesMapper.list(page);
+        return ResponsePage.success(result.getRecords(),result.getPages(),result.getTotal());
     }
 }

@@ -2,8 +2,12 @@ package org.uppower.project.cashiermanagesystem.service;
 
 import cn.windyrjc.utils.copy.DataUtil;
 import cn.windyrjc.utils.response.Response;
+import cn.windyrjc.utils.response.ResponsePage;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.uppower.project.cashiermanagesystem.CashierManageSystemApplication;
 import org.uppower.project.cashiermanagesystem.dao.LotteryMapper;
 import org.uppower.project.cashiermanagesystem.model.dto.LotteryDto;
 import org.uppower.project.cashiermanagesystem.model.entity.LotteryEntity;
@@ -13,6 +17,7 @@ import org.uppower.project.cashiermanagesystem.utils.MoneyManageUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * create by:
@@ -32,18 +37,20 @@ public class LotteryService {
     @Autowired
     LotteryMapper lotteryMapper;
 
-    public Response<List<LotteryResult>> index()
+    public ResponsePage<LotteryResult> index(Integer pn)
     {
-        List<LotteryResult> list = new ArrayList<>();
-        LotteryResult result;
-        List<LotteryDto> lotteryDtos = lotteryMapper.index();
-        for (LotteryDto dto: lotteryDtos) {
-            result = DataUtil.convert(dto,LotteryResult.class);
-            result.setDiscount(MoneyManageUtil.fenToYuan(dto.getDiscount()));
-            result.setName(DiscountAuthEnum.getMsgByCode(dto.getPattern()));
-            list.add(result);
-        }
-        return Response.success(list);
+        Page page = new Page(pn, CashierManageSystemApplication.PAGESIZE);
+        List<LotteryResult> list = null;
+
+        IPage<LotteryDto> lotteryDtos = lotteryMapper.index(page);
+        list = lotteryDtos.getRecords().stream().map(p->{
+            LotteryResult result= DataUtil.convert(p,LotteryResult.class);
+            result.setDiscount(MoneyManageUtil.fenToYuan(p.getDiscount()));
+            result.setName(DiscountAuthEnum.getMsgByCode(p.getPattern()));
+            return result;
+        }).collect(Collectors.toList());
+
+        return ResponsePage.success(list,lotteryDtos.getPages(),lotteryDtos.getTotal());
     }
 
     public Response store(Integer id)
