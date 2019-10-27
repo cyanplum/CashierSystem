@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.uppower.project.cashiermanagesystem.model.entity.jsonobject.CommodityInfo;
+import org.uppower.project.cashiermanagesystem.model.entity.jsonobject.CommodityInfoResult;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -40,8 +41,8 @@ public class DealRecordResult {
     private String orderNumber;
 
     @ApiModelProperty(value = "交易商品")
-    private List<CommodityInfo> commodity;
+    private List<CommodityInfoResult> commodity;
 
     @ApiModelProperty(value = "总价")
-    private Integer totalPrices;
+    private Double totalPrices;
 }
