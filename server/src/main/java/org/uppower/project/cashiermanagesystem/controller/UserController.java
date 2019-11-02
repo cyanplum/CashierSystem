@@ -2,11 +2,13 @@ package org.uppower.project.cashiermanagesystem.controller;
 
 import cn.windyrjc.security.web.beans.UserDetails;
 import cn.windyrjc.utils.response.Response;
+import cn.windyrjc.utils.response.ResponsePage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.uppower.project.cashiermanagesystem.Log.MyLog;
 import org.uppower.project.cashiermanagesystem.model.UserInfo;
 import org.uppower.project.cashiermanagesystem.model.result.UserDiscountResult;
 import org.uppower.project.cashiermanagesystem.model.result.UserResult;
@@ -43,8 +45,10 @@ public class UserController {
 
     @ApiOperation("得到用户的优惠劵")
     @GetMapping("/getDiscount")
-    public Response<List<UserDiscountResult>> getDiscount(UserInfo userInfo) {
-        return userService.getDiscount(userInfo);
+    public ResponsePage<UserDiscountResult> getDiscount(UserInfo userInfo,
+                                                        @RequestParam(value = "pn",defaultValue = "1") Integer pn,
+                                                        @RequestParam(value = "status",required = false) Integer status) {
+        return userService.getDiscount(userInfo,pn,status);
     }
 
     @ApiOperation("用户注册")
@@ -54,10 +58,17 @@ public class UserController {
         return userService.register(userInfo.getOpenId(), vo);
     }
 
+
     @ApiOperation("用户修改个人信息")
     @PatchMapping
     public Response update(UserInfo userInfo, @RequestBody UserRegisterVo vo) {
         return userService.update(userInfo.getOpenId(), vo);
+    }
+
+    @ApiOperation("用户获得会员码")
+    @GetMapping("/getVip")
+    public Response vip(UserInfo userInfo){
+        return userService.vip(userInfo);
     }
 
 }

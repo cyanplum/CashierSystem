@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.uppower.project.cashiermanagesystem.model.result.RolesResult;
-import org.uppower.project.cashiermanagesystem.service.RolesService;
-
-import java.util.List;
+import org.uppower.project.cashiermanagesystem.model.UserInfo;
+import org.uppower.project.cashiermanagesystem.model.result.DealRecordResult;
+import org.uppower.project.cashiermanagesystem.service.DealRecordService;
 
 /**
  * create by:
@@ -23,19 +22,19 @@ import java.util.List;
  * * | |_| |_    / /       | |   | |/   |/ /
  * * \_______|  /_/        |_|  |___/|___/
  *
- * @date 2019/10/2120:53
+ * @date 2019/10/2415:58
  */
 @RestController
-@RequestMapping("/roles")
-@Api("权限的操作")
-public class RolesController{
+@RequestMapping("/dealRecord")
+@Api("交易记录的操作")
+public class DealRecordController {
 
     @Autowired
-    RolesService rolesService;
+    DealRecordService dealRecordService;
 
-    @ApiOperation("查看所有权限")
+    @ApiOperation("查询交易记录表")
     @GetMapping
-    public ResponsePage<RolesResult> index(@RequestParam(value = "pn",defaultValue = "1")Integer pn){
-        return rolesService.index(pn);
+    public ResponsePage<DealRecordResult> index(UserInfo userInfo, @RequestParam(value = "pn",defaultValue = "1")Integer pn){
+        return dealRecordService.index(userInfo,pn);
     }
 }

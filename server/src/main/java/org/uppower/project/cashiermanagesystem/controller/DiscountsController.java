@@ -1,6 +1,7 @@
 package org.uppower.project.cashiermanagesystem.controller;
 
 import cn.windyrjc.utils.response.Response;
+import cn.windyrjc.utils.response.ResponsePage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -33,8 +34,8 @@ public class DiscountsController {
 
     @ApiOperation("查询已存在的优惠劵")
     @GetMapping
-    public Response<List<DiscountsResult>> index(){
-        return discountsService.index();
+    public ResponsePage<DiscountsResult> index(@RequestParam(value = "pn",defaultValue = "1")Integer pn){
+        return discountsService.index(pn);
     }
 
     @ApiOperation("增加优惠劵")

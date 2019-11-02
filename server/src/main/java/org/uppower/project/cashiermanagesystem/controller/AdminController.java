@@ -1,18 +1,17 @@
 package org.uppower.project.cashiermanagesystem.controller;
 
-import cn.windyrjc.utils.response.Response;
 import cn.windyrjc.utils.response.ResponsePage;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.uppower.project.cashiermanagesystem.model.result.RolesResult;
-import org.uppower.project.cashiermanagesystem.service.RolesService;
+import org.uppower.project.cashiermanagesystem.model.UserInfo;
+import org.uppower.project.cashiermanagesystem.model.result.DealRecordResult;
+import org.uppower.project.cashiermanagesystem.service.AdminService;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 /**
  * create by:
@@ -23,19 +22,19 @@ import java.util.List;
  * * | |_| |_    / /       | |   | |/   |/ /
  * * \_______|  /_/        |_|  |___/|___/
  *
- * @date 2019/10/2120:53
+ * @date 2019/10/2519:09
  */
+@RequestMapping("/admin")
 @RestController
-@RequestMapping("/roles")
-@Api("权限的操作")
-public class RolesController{
+public class AdminController {
 
     @Autowired
-    RolesService rolesService;
+    AdminService adminService;
 
-    @ApiOperation("查看所有权限")
+    @ApiOperation("查询交易记录表")
     @GetMapping
-    public ResponsePage<RolesResult> index(@RequestParam(value = "pn",defaultValue = "1")Integer pn){
-        return rolesService.index(pn);
+    public ResponsePage<DealRecordResult> index(UserInfo userInfo, @RequestParam(value = "pn",defaultValue = "1")Integer pn,
+                                                @RequestParam(value = "dateTime",required = false) long dateTime){
+        return adminService.index(userInfo,pn,dateTime);
     }
 }

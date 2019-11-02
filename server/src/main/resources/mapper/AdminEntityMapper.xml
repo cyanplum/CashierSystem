@@ -2,4 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.uppower.project.cashiermanagesystem.dao.AdminMapper">
 
+    <select id="index" resultType="org.uppower.project.cashiermanagesystem.model.entity.DealRecordEntity">
+        select * from deal_record where 1=1
+        <if test="localDateTime != null">
+            and date(create_time) = #{localDateTime.date}
+        </if>
+        order by create_time
+
+    </select>
 </mapper>
