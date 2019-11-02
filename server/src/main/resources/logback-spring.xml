@@ -1,0 +1,70 @@
+<configuration>
+
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <property name="LOG_FILE_NAME" value="uppower_cashier_manage"/>
+    <property name="FILE_PATTERN" value="%d [%t] %5p %c - %m%n"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} -
+                %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="systemConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%date] [%thread] [%-5level] [%logger] -----> %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="HELLO_FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--See also http://logback.qos.ch/manual/appenders.html#RollingFileAppender -->
+        <File>logs/${LOG_FILE_NAME}_hello.log</File>
+        <encoder>
+            <pattern>${FILE_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>512MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <fileNamePattern>logs/archive/${LOG_FILE_NAME}_hello-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+
+
+
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--See also http://logback.qos.ch/manual/appenders.html#RollingFileAppender -->
+        <File>logs/${LOG_FILE_NAME}.log</File>
+        <encoder>
+            <pattern>${FILE_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>512MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <fileNamePattern>logs/archive/${LOG_FILE_NAME}-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="hello" level="INFO" additivity="false">
+        <appender-ref ref="HELLO_FILE"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="FILE" />
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>
