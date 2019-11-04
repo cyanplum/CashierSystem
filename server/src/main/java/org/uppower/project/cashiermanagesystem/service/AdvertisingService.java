@@ -14,6 +14,7 @@ import org.uppower.project.cashiermanagesystem.dao.AdvertisingMapper;
 import org.uppower.project.cashiermanagesystem.exceptions.ServerException;
 import org.uppower.project.cashiermanagesystem.model.entity.AdvertisingEntity;
 import org.uppower.project.cashiermanagesystem.model.result.AdvertisingResult;
+import org.uppower.project.cashiermanagesystem.model.result.FileInfoResult;
 import org.uppower.project.cashiermanagesystem.model.vo.AdvertisingVo;
 import org.uppower.project.cashiermanagesystem.utils.AttachmentUtils;
 
@@ -66,7 +67,7 @@ public class AdvertisingService {
 
     @Transactional(rollbackFor = Exception.class)
     public Response update(Integer id, AdvertisingVo vo) {
-        int success = advertisingMapper.updateByVo(id,vo);
+        int success = advertisingMapper.updateByVo(id, vo);
         if (success != 1) {
             throw new ServerException("系统错误,更新失败");
         }
@@ -95,5 +96,14 @@ public class AdvertisingService {
             }).collect(Collectors.toList());
         }
         return ResponsePage.success(results, advertisingEntitys.getPages(), advertisingEntitys.getTotal());
+    }
+
+    public ResponsePage<FileInfoResult> show() {
+        List<AdvertisingEntity> entities = advertisingMapper.show();
+        List<FileInfoResult> results = null;
+        if (entities != null && !entities.isEmpty()) {
+            results = entities.stream().map(p -> attachmentUtils.getFileInfoResult(p.getStoreName())).collect(Collectors.toList());
+        }
+        return ResponsePage.success(results);
     }
 }

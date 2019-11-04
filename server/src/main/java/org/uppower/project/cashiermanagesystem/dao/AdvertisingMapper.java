@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.uppower.project.cashiermanagesystem.model.result.AdvertisingResult;
 import org.uppower.project.cashiermanagesystem.model.vo.AdvertisingVo;
 
+import java.util.List;
+
 /**
  * <p>
  * 广告表 Mapper 接口
@@ -23,4 +25,6 @@ public interface AdvertisingMapper extends BaseMapper<AdvertisingEntity> {
     IPage<AdvertisingEntity> selectListByStatus(Page page, @Param("status") Integer status);
 
     int updateByVo(@Param("id") Integer id, @Param("vo") AdvertisingVo vo);
+
+    List<AdvertisingEntity> show();
 }

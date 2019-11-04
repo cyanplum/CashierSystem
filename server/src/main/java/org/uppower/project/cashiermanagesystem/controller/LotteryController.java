@@ -41,19 +41,19 @@ public class LotteryController {
         return lotteryService.index(pn);
     }
 
-    @ApiOperation("抽奖池的插入")
+    @ApiOperation("抽奖池中奖券的插入")
     @GetMapping("/{id}")
     public Response store(@ApiParam("抽奖劵的id") @PathVariable("id") Integer id){
         return lotteryService.store(id);
     }
 
-    @ApiOperation("抽奖池的修改")
+    @ApiOperation("抽奖池中奖券的修改")
     @PatchMapping
     public Response update(@ApiParam("id") @RequestParam("id") Integer id,@RequestParam("status") @PathVariable Integer status){
         return lotteryService.update(id,status);
     }
 
-    @ApiOperation("抽奖池的删除")
+    @ApiOperation("抽奖池中奖券的删除")
     @DeleteMapping("/{id}")
     public Response delete(@ApiParam("奖池抽奖劵的id") @PathVariable("id") Integer id){
         return lotteryService.delete(id);

@@ -38,17 +38,17 @@ public class DealRecordService {
     @Autowired
     DealRecordMapper dealRecordMapper;
 
-    public ResponsePage<DealRecordResult> index(UserInfo userInfo, Integer pn){
+    public ResponsePage<DealRecordResult> index(Integer userId, Integer pn) {
         Page page = new Page(pn, CashierManageSystemApplication.PAGESIZE);
-        IPage<DealRecordEntity> entity = dealRecordMapper.selectByUserId(page,userInfo.getUserId());
+        IPage<DealRecordEntity> entity = dealRecordMapper.selectByUserId(page, userId);
         List<DealRecordResult> dealRecordResults = null;
         List<DealRecordResult> list = new ArrayList<>();
-        dealRecordResults = entity.getRecords().stream().map(p->{
-            List<CommodityInfo> commodityInfos = FastJsonUtil.toList(p.getCommodity(),CommodityInfo.class);
-            DealRecordResult result = DataUtil.convert(p,DealRecordResult.class);
+        dealRecordResults = entity.getRecords().stream().map(p -> {
+            List<CommodityInfo> commodityInfos = FastJsonUtil.toList(p.getCommodity(), CommodityInfo.class);
+            DealRecordResult result = DataUtil.convert(p, DealRecordResult.class);
             List<CommodityInfoResult> commodityInfoResults = new ArrayList<>();
-            for (CommodityInfo info:commodityInfos) {
-                CommodityInfoResult result1 = DataUtil.convert(info,CommodityInfoResult.class);
+            for (CommodityInfo info : commodityInfos) {
+                CommodityInfoResult result1 = DataUtil.convert(info, CommodityInfoResult.class);
                 result1.setPrice(MoneyManageUtil.fenToYuan(info.getPrice()));
                 commodityInfoResults.add(result1);
             }
@@ -56,6 +56,6 @@ public class DealRecordService {
             result.setTotalPrices(MoneyManageUtil.fenToYuan(p.getTotalPrices()));
             return result;
         }).collect(Collectors.toList());
-        return ResponsePage.success(dealRecordResults,entity.getPages(),entity.getTotal());
+        return ResponsePage.success(dealRecordResults, entity.getPages(), entity.getTotal());
     }
 }

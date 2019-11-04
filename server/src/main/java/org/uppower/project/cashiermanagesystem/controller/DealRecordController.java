@@ -35,6 +35,6 @@ public class DealRecordController {
     @ApiOperation("查询交易记录表")
     @GetMapping
     public ResponsePage<DealRecordResult> index(UserInfo userInfo, @RequestParam(value = "pn",defaultValue = "1")Integer pn){
-        return dealRecordService.index(userInfo,pn);
+        return dealRecordService.index(userInfo.getUserId(),pn);
     }
 }

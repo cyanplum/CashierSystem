@@ -3,9 +3,13 @@ package org.uppower.project.cashiermanagesystem.model.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.time.LocalDateTime;
+
 import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.io.Serializable;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -53,7 +57,9 @@ public class DealRecordEntity implements Serializable {
     @TableField("total_prices")
     private Integer totalPrices;
 
-
+    @ApiModelProperty(value = "使用的优惠券id  0代表未使用")
+    @TableField("discounts")
+    private Integer discounts;
 
 
 }
