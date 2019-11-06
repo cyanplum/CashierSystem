@@ -28,7 +28,7 @@ import org.uppower.project.cashiermanagesystem.service.AdvertisingService;
  * @modified By：
  * @version:
  */
-@Api(value = "广告管理的相关接口")
+@Api(value = "广告管理的相关接口",description = "广告管理相关接口")
 @RestController
 @RequestMapping("/advertising")
 public class AdvertisingController {

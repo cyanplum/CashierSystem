@@ -29,7 +29,7 @@ import java.util.List;
  *
  * @date 2019/10/2112:30
  */
-@Api("用户首页操作")
+@Api(value = "用户首页操作",description = "用户个人信息接口")
 @RestController
 @RequestMapping("/user")
 public class UserController {

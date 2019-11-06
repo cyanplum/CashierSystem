@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/roles")
-@Api("权限的操作")
+@Api(value = "权限的操作",description = "权限管理")
 public class RolesController{
 
     @Autowired

@@ -5,10 +5,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.uppower.project.cashiermanagesystem.model.result.AdvertisingResult;
 import org.uppower.project.cashiermanagesystem.model.result.FileInfoResult;
 import org.uppower.project.cashiermanagesystem.service.AdvertisingService;
 
@@ -31,7 +29,7 @@ import org.uppower.project.cashiermanagesystem.service.AdvertisingService;
  */
 @RestController
 @RequestMapping("/users/normal")
-@Api(value = "用户通用接口，如广告的显示、物品的交易等")
+@Api(value = "用户通用接口", description = "用户通用接口，如广告的显示、物品的交易等")
 public class UserNormalController {
 
     @Autowired
@@ -39,18 +37,14 @@ public class UserNormalController {
 
     @GetMapping("/advertising")
     @ApiOperation("用户的广告列表")
-    public ResponsePage<FileInfoResult> advertisingShow(){
+    public ResponsePage<FileInfoResult> advertisingShow() {
         return advertisingService.show();
     }
 
 //    @PostMapping("/deal")
 //    @ApiOperation("用户购买物品")
 //    public
-
-
-
-
-
+// 对于优惠计算，首先判断满减，再拿到打折最小，然后进行匹配，两者最小的返回，并且返回所有的优惠券
 
 
 }

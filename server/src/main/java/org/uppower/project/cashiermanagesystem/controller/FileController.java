@@ -43,7 +43,7 @@ import java.security.NoSuchAlgorithmException;
  * @modified By：
  * @version:
  */
-@Api(value = "文件上传下载接口")
+@Api(value = "文件上传下载接口",description = "文件上传相关接口")
 @RestController
 @RequestMapping("/file")
 @Slf4j

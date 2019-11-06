@@ -2,6 +2,7 @@ package org.uppower.project.cashiermanagesystem.controller;
 
 import cn.windyrjc.utils.response.Response;
 import com.baomidou.mybatisplus.extension.api.R;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/rules")
+@Api(value = "规则管理接口",description = "用户规则管理接口")
 public class RulesController {
 
     @Autowired

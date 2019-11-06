@@ -1,6 +1,7 @@
 package org.uppower.project.cashiermanagesystem.controller;
 
 import cn.windyrjc.utils.response.ResponsePage;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ import java.time.LocalDateTime;
  */
 @RequestMapping("/admin")
 @RestController
+@Api(value = "管理员接口",description = "管理员查看交易记录")
 public class AdminController {
 
     @Autowired

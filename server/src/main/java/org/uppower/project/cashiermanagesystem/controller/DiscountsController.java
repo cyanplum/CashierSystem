@@ -26,7 +26,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/discounts")
-@Api("优惠劵的操作")
+@Api(value = "优惠劵的操作",description = "优惠券相关接口")
 public class DiscountsController {
 
     @Autowired

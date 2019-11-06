@@ -26,7 +26,7 @@ import org.uppower.project.cashiermanagesystem.service.DealRecordService;
  */
 @RestController
 @RequestMapping("/dealRecord")
-@Api("交易记录的操作")
+@Api(value = "交易记录的操作",description = "交易记录接口")
 public class DealRecordController {
 
     @Autowired

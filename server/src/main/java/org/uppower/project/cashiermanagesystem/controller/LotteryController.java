@@ -28,7 +28,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/lottery")
-@Api("抽奖池的操作")
+@Api(value = "抽奖池的操作",description = "抽奖池相关接口")
 public class LotteryController {
 
 

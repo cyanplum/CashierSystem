@@ -29,7 +29,7 @@ import org.uppower.project.cashiermanagesystem.service.BarcodeManageService;
  * @modified By：
  * @version:
  */
-@Api(value = "条形码管理接口")
+@Api(value = "条形码管理接口",description="条形码管理接口")
 @RestController
 @RequestMapping("/barcode")
 public class BarcodeManageController {
